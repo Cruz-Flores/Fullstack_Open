@@ -13,7 +13,7 @@ const App = () => {
     setOpinions({...opinions, good: opinions.good + 1}) 
 
     const handleNeutralClick = () => 
-    setOpinions({...opinions, neutral: opinions.neutral + 1}) //el controlador de estado debe ser un funcion o un llamado a una funcion
+    setOpinions({...opinions, neutral: opinions.neutral + 1})
 
     const handleBadClick = () => 
     setOpinions({...opinions, bad: opinions.bad + 1})
