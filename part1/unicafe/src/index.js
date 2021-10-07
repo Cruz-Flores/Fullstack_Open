@@ -55,8 +55,3 @@ const App = () => {
   
 ReactDOM.render(<App />, document.getElementById('root'))
 
-//JSX no devuelve etiquetas, JSX es una extensión de sintaxis opcional para JavaScript que facilita mucho la escritura de sus propios componentes., despues babel transpila el codigo y devuelve codigo java script legible para el navegador
-//no modificar los estados directamente, crear funcion para modificar estados *** aunque este definido como constante un array se puede modificar
-//spread crea un nuevo arreglo con los datos del arreglo anterior, si se especifica un propiedad con un nuevo valor la reemplaza 
-//funcion para evitar la division por 0
-/* const hi = fi => fi > 0 ? fi/all() : all() */
