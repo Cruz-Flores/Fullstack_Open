@@ -5,6 +5,7 @@ const Form = ({onSubmit, handleInputChange, newName, newNumber}) => {
         <form onSubmit={onSubmit}>
             <div>
                 <input 
+                type="text"
                 name="name"
                 placeholder="Enter name"
                 value={newName} 

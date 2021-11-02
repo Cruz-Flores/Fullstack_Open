@@ -47,7 +47,7 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-    let regExp = new RegExp([event.target.value],'i', 'S')
+    let regExp = new RegExp(event.target.value, 'i', 'S')
     let result = []
     for(let record in persons){
       if(regExp.test(persons[record].name)){
