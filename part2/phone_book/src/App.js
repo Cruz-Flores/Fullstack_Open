@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Filter from './components/Filter.js'
 import Form from './components/Form.js'
 import Book from './components/Book.js'
@@ -47,8 +48,9 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-    let regExp = new RegExp(event.target.value, 'i', 'S')
+    let regExp = new RegExp(event.target.value, 'i')
     let result = []
+    console.log(event.target.value.length)
     for(let record in persons){
       if(regExp.test(persons[record].name)){
         result.push(persons[record])
@@ -56,6 +58,18 @@ const App = () => {
       }
     }
   }
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+        .get('http://localhost:3001/persons')
+        .then(response => {
+            console.log('promise fulfilled')
+            setPersons(response.data)
+        })
+  }, [])
+
+  console.log('render', persons.length, 'notes')
 
   return (
     <div>
