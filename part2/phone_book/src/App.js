@@ -24,8 +24,6 @@ const App = () => {
     
     const names = persons.map(person => person.name)
 
-    console.log(nameObject.keys)
-
     if(names.includes(nameObject.name)){
       alert(`${nameObject.name} already exists in the book`)
     }
@@ -48,14 +46,18 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-    let regExp = new RegExp(event.target.value, 'i')
-    let result = []
-    console.log(event.target.value.length)
-    for(let record in persons){
-      if(regExp.test(persons[record].name)){
-        result.push(persons[record])
-        setMatch([...result])
-      }
+    
+    if(!event.target.value.length>0) {
+      const search = []
+      setMatch([...search])
+    }
+    else{
+      const coincidences = persons.filter(person => {
+        const textToSearch = event.target.value.toLowerCase()
+        const personToCompare = person.name.toLowerCase()
+        return personToCompare.includes(textToSearch)
+      })        
+      setMatch([...coincidences])
     }
   }
 
