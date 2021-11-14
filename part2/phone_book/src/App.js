@@ -67,7 +67,8 @@ const App = () => {
         .get('http://localhost:3001/persons')
         .then(response => {
             console.log('promise fulfilled')
-            setPersons(response.data)
+            setGlobalData(response.data)
+            console.log(response)
         })
   }, [])
 
