@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Form = ({onSubmit, handleInputChange, newName, newNumber}) => {
+const Form = ({onSubmit, handleInputChange, newPerson}) => {
     return(
         <form onSubmit={onSubmit}>
             <div>
@@ -8,7 +8,7 @@ const Form = ({onSubmit, handleInputChange, newName, newNumber}) => {
                 type="text"
                 name="name"
                 placeholder="Enter name"
-                value={newName} 
+                value={newPerson.name} 
                 onChange={handleInputChange} />
             </div>
             <div>
@@ -16,7 +16,7 @@ const Form = ({onSubmit, handleInputChange, newName, newNumber}) => {
                 type="tel"
                 name="number"
                 placeholder="Enter number"
-                value={newNumber} 
+                value={newPerson.number} 
                 onChange={handleInputChange} />
             </div>
             <div>
