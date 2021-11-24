@@ -1,28 +1,17 @@
-import React from 'react'
-import Person from './Person.js'
+import React from 'react';
 
-const Filter = ({match, filter, handleFilterChange}) => {
-  return(
+const Filter = ({ filter, handleFilterChange }) => {
+  return (
     <div>
-      <p>Filter shown with</p> 
+      <p>Filter shown with</p>
       <input
-      type='text'
-      placeholder="Enter name to search"
-      value={filter} 
-      onChange={handleFilterChange}/>
-      {match.length > 0 && 
-        <ul>
-          {match.map(
-            person => (
-              <Person 
-                key={`${person.name} 1`} 
-                person={person} />
-            ))}
-        </ul>
-      }
+        type="text"
+        placeholder="Enter name to search"
+        value={filter}
+        onChange={handleFilterChange}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Filter
-
+export default Filter;

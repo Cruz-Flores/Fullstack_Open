@@ -1,16 +1,12 @@
-import React from 'react'
-import './index.css'
+import React from 'react';
+import './index.css';
 
-const Notification = ({ message, classEvent }) => {
-    if(message === null) {
-        return null
-    }
+const Notification = ({ notification }) => {
+  if (notification === null) {
+    return null;
+  }
 
-    return (
-        <div className={classEvent? 'succes' : 'error'}>
-            {message}
-        </div>
-    )
-}
+  return <div className={notification.type}>{notification.message}</div>;
+};
 
-export {Notification}
+export { Notification };
