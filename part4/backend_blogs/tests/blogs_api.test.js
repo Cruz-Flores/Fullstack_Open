@@ -82,6 +82,18 @@ test('id checker', async () => {
   expect(blogToEvaluate.body[0].id).toBeDefined();
 });
 
+test('a blog can be added', async () => {
+  const newBlog = new Blog(initialBlogs[2]);
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/);
+
+  const blogsAtEnd = await Blog.find({});
+  expect(blogsAtEnd).toHaveLength(3);
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
