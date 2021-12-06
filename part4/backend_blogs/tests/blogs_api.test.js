@@ -59,7 +59,7 @@ beforeEach(async () => {
   let blogObject = new Blog(initialBlogs[0]);
   await blogObject.save();
   blogObject = new Blog(initialBlogs[1]);
-  await noteObject.save();
+  await blogObject.save();
 });
 
 test('blogs are returned as jason', async () => {
@@ -70,7 +70,7 @@ test('blogs are returned as jason', async () => {
 
   const response = await api.get('/api/blogs');
 
-  expect(response.body).toHaveLength(0);
+  expect(response.body).toHaveLength(initialBlogs.length - 4);
 });
 
 afterAll(() => {
