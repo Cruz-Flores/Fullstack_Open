@@ -73,6 +73,15 @@ test('blogs are returned as jason', async () => {
   expect(response.body).toHaveLength(initialBlogs.length - 4);
 });
 
+test('id checker', async () => {
+  const blogToEvaluate = await api
+    .get(`/api/blogs/`)
+    .expect(200)
+    .expect('Content-Type', /application\/json/);
+
+  expect(blogToEvaluate.body[0].id).toBeDefined();
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
