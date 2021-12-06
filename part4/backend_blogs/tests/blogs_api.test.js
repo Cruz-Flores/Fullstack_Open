@@ -9,6 +9,10 @@ test('blogs are returned as jason', async () => {
     .get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/);
+
+  const response = await api.get('/api/blogs');
+
+  expect(response.body).toHaveLength(0);
 });
 
 afterAll(() => {
