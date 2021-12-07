@@ -103,6 +103,14 @@ test('a blog without id set default 0', async () => {
   expect(blogsAtEnd[2].likes).toBe(0);
 });
 
+test('a blog without title cant be added', async () => {
+  const newBlog = {
+    author: 'Edsger W. Dijkstra',
+    likes: 12,
+  };
+  await api.post('/api/blogs').send(newBlog).expect(400);
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
