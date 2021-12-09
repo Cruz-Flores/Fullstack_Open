@@ -1,21 +1,23 @@
-POST http://localhost:3001/api/login
+POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNydXppdG8iLCJpZCI6IjYxYjE5NDY3ZDUxNzFhOWM2ZThiOGNkOCIsImlhdCI6MTYzOTAyODMxM30.H76JePiIKGzDI9sopmhu5x1-pku8NEuOuQlZKUlTS08
+
+# {
+#     "username": "Cruzito",
+#     "password": "ganjah"
+# }
+
+# {
+#     "username": "Cruzito",
+#     "name": "Cruz",
+#     "password": "ganjah"
+# }
 
 {
-    "username": "Tesla",
-    "password": "coil"
+    "title": "React patterns",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "likes": 7
 }
 
-# {
-#     "username": "Tesla",
-#     "name": "Nikola",
-#     "password": "coil"
-# }
-
-# {
-#     "title": "React patterns",
-#     "author": "Michael Chan",
-#     "url": "https://reactpatterns.com/",
-#     "likes": 7,
-#     "userId": "61b176e6fa94d461561c6d3f"
-# }
+    
