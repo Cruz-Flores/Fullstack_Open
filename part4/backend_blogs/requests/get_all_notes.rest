@@ -1,16 +1,21 @@
-POST http://localhost:3001/api/users
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-    "username": "Cruzito",
-    "name": "Cruz",
-    "password": "ganjah"
+    "username": "Tesla",
+    "password": "coil"
 }
 
-{
-    "title": "React patterns",
-    "author": "Michael Chan",
-    "url": "https://reactpatterns.com/",
-    "likes": 7,
-    "userId": "61b1654371a0de65a01be45b"
-}
+# {
+#     "username": "Tesla",
+#     "name": "Nikola",
+#     "password": "coil"
+# }
+
+# {
+#     "title": "React patterns",
+#     "author": "Michael Chan",
+#     "url": "https://reactpatterns.com/",
+#     "likes": 7,
+#     "userId": "61b176e6fa94d461561c6d3f"
+# }
