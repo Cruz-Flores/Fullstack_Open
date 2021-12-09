@@ -21,8 +21,8 @@ blogsRouter.post('/', async (request, response, next) => {
   });
 
   const savedBlog = await blog.save();
-  user.blogs = user.blogs.concat(savedNote._id);
-  await user.save();
+  user.blogs = user.blogs.concat(savedBlog._id);
+  await User.findByIdAndUpdate(body.userId, user);
 
   response.json(savedBlog);
 });

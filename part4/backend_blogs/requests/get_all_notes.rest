@@ -6,3 +6,11 @@ Content-Type: application/json
     "name": "Cruz",
     "password": "ganjah"
 }
+
+{
+    "title": "React patterns",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "likes": 7,
+    "userId": "61b1654371a0de65a01be45b"
+}
