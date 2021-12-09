@@ -9,6 +9,13 @@ usersRouter.get('/', async (request, response) => {
 
 usersRouter.post('/', async (request, response) => {
   const body = request.body;
+  const password = body.password;
+
+  if (!(password && password.length > 3)) {
+    return response.status(401).json({
+      error: 'invalid password',
+    });
+  }
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
