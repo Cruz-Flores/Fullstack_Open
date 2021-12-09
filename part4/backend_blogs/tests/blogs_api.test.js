@@ -4,6 +4,8 @@ const helper = require('./test_helper.js');
 const app = require('../app.js');
 const api = supertest(app);
 const Blog = require('../models/blog.js');
+const User = require('../models/user.js');
+const bcrypt = require('bcrypt');
 
 beforeEach(async () => {
   await Blog.deleteMany({});
@@ -73,6 +75,41 @@ test('a blog without title cant be added', async () => {
   };
 
   await api.post('/api/blogs').send(newBlog).expect(400);
+});
+
+describe('creation of invalid users return error', () => {
+  beforeEach(async () => {
+    await User.deleteMany({});
+
+    const passwordHash = await bcrypt.hash('sekret', 10);
+    const user = new User({ username: 'test', password: passwordHash });
+
+    await user.save();
+  });
+
+  test('request with repeated user return erorr', async () => {
+    const passwordHash = await bcrypt.hash('coil', 10);
+
+    const newUser = new User({
+      username: 'Tesla',
+      name: 'Nicola',
+      password: passwordHash,
+    });
+
+    await newUser.save();
+    const usersAtTheStart = await helper.usersInDb();
+
+    const repeatedUser = {
+      username: 'Tesla',
+      name: 'Nicola',
+      password: 'coil',
+    };
+
+    await api.post('/api/users').send(repeatedUser).expect(400);
+    const usersAtTheEnd = await helper.usersInDb();
+
+    expect(usersAtTheEnd).toHaveLength(usersAtTheStart.length);
+  });
 });
 
 afterAll(() => {
