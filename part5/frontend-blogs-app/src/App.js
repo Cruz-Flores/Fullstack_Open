@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import blogsService from './services/blogs.js';
+import { blogsService } from './services/blogs.js';
 import { loginService } from './services/login.js';
 import { LoginForm } from './components/LoginForm.js';
-import { BlogList } from './components/BlogList.js';
 import { NewBlogForm } from './components/NewBlogForm.js';
 import { Notification } from './components/Notification.js';
+import { Togglable } from './components/Togglable.js';
+import { Blog } from './components/Blog.js';
+
 import './index.css';
 
 const App = () => {
@@ -14,23 +16,11 @@ const App = () => {
     password: '',
   });
   const [userLoged, setUserLoged] = useState(null);
-  const [newBlog, setNewBlog] = useState({
-    title: '',
-    author: '',
-    url: '',
-  });
   const [notification, setNotification] = useState(null);
 
   const handleInputChange = (event) => {
     setUserToLogin({
       ...userToLogin,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleNewBlogChange = (event) => {
-    setNewBlog({
-      ...newBlog,
       [event.target.name]: event.target.value,
     });
   };
@@ -59,7 +49,6 @@ const App = () => {
     } catch (exception) {
       notifyWith(`Wrong credentials`, 'error');
     }
-    console.log(userToLogin);
   };
 
   const userLogout = () => {
@@ -68,23 +57,45 @@ const App = () => {
     notifyWith(`${userLoged.name} logout`, 'succes');
   };
 
-  const addBLog = async (event) => {
-    event.preventDefault();
-    const blogObject = {
-      ...newBlog,
-    };
+  const addBLog = async (blogObject) => {
+    try {
+      const returnedBlog = await blogsService.create(blogObject);
+      setBlogs(blogs.concat(returnedBlog));
+      notifyWith(
+        `A new Blog ${returnedBlog.title} by ${returnedBlog.author} added`,
+        'succes'
+      );
+    } catch (exception) {
+      notifyWith(`Error`, 'error');
+    }
+  };
 
-    const returnedBlog = await blogsService.create(blogObject);
-    setBlogs(blogs.concat(returnedBlog));
-    setNewBlog({
-      title: '',
-      author: '',
-      url: '',
-    });
-    notifyWith(
-      `A new Blog ${returnedBlog.title} by ${returnedBlog.author} added`,
-      'succes'
-    );
+  const addLikes = async (blogObject) => {
+    const changedBlog = { ...blogObject, likes: blogObject.likes + 1 };
+    try {
+      const returnedBlog = await blogsService.update(
+        blogObject.id,
+        changedBlog
+      );
+      setBlogs(
+        blogs.map((blog) => (blog.id !== blogObject.id ? blog : returnedBlog))
+      );
+    } catch (exception) {
+      notifyWith(`Error`, 'error');
+    }
+  };
+
+  const deleteBlog = async (blog) => {
+    const ok = window.confirm(`Delete the blog ${blog.title}`);
+    if (ok) {
+      try {
+        await blogsService.remove(blog.id);
+        setBlogs(blogs.filter((object) => object.id !== blog.id));
+        notifyWith(`Deleted ${blog.title}`, 'succes');
+      } catch (exception) {
+        notifyWith(`Error`, 'error');
+      }
+    }
   };
 
   useEffect(() => {
@@ -116,12 +127,17 @@ const App = () => {
             {userLoged.name} logged in
             <button onClick={userLogout}>logout</button>
           </p>
-          <NewBlogForm
-            newBlog={newBlog}
-            onSubmit={addBLog}
-            onChange={handleNewBlogChange}
-          />
-          <BlogList user={userLoged.name} blogs={blogs} onClick={userLogout} />
+          <Togglable buttonLabel="create">
+            <NewBlogForm createBlog={addBLog} />
+          </Togglable>
+          {blogs.map((blog) => (
+            <Blog
+              key={blog.id}
+              blog={blog}
+              addLikes={() => addLikes(blog)}
+              deleteBlog={() => deleteBlog(blog)}
+            />
+          ))}
         </>
       )}
     </div>
