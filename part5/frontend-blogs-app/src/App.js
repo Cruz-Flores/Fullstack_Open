@@ -88,13 +88,10 @@ const App = () => {
   const deleteBlog = async (blog) => {
     const ok = window.confirm(`Delete the blog ${blog.title}`);
     if (ok) {
-      try {
-        await blogsService.remove(blog.id);
-        setBlogs(blogs.filter((object) => object.id !== blog.id));
-        notifyWith(`Deleted ${blog.title}`, 'succes');
-      } catch (exception) {
-        notifyWith(`Error`, 'error');
-      }
+      const blogdeleted = await blogsService.remove(blog.id);
+      // setBlogs(blogs.filter((object) => object.id !== blog.id));
+      // notifyWith(`Deleted ${blog.title}`, 'succes');
+      console.log(blogdeleted);
     }
   };
 
@@ -134,6 +131,7 @@ const App = () => {
             <Blog
               key={blog.id}
               blog={blog}
+              userLoged={userLoged}
               addLikes={() => addLikes(blog)}
               deleteBlog={() => deleteBlog(blog)}
             />
