@@ -47,7 +47,7 @@ const App = () => {
       });
       notifyWith(`${user.name} logged`, 'succes');
     } catch (exception) {
-      notifyWith(`Wrong credentials`, 'error');
+      notifyWith('Wrong credentials', 'error');
     }
   };
 
@@ -66,7 +66,7 @@ const App = () => {
         'succes'
       );
     } catch (exception) {
-      notifyWith(`Error`, 'error');
+      notifyWith('Error', 'error');
     }
   };
 
@@ -81,7 +81,7 @@ const App = () => {
         blogs.map((blog) => (blog.id !== blogObject.id ? blog : returnedBlog))
       );
     } catch (exception) {
-      notifyWith(`Error`, 'error');
+      notifyWith('Error', 'error');
     }
   };
 
