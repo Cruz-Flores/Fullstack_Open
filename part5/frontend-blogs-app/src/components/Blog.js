@@ -17,12 +17,12 @@ const Blog = ({ blog, addLikes, deleteBlog, userLoged }) => {
   const butonText = visible ? 'hide' : 'view';
 
   return (
-    <div style={blogStyle}>
-      <div>
+    <div className="principalDiv" style={blogStyle}>
+      <div className="visibleAtTheStart">
         {blog.title} - {blog.author}
         <button onClick={toggleVisibility}>{butonText}</button>
       </div>
-      <div style={showWhenVisible}>
+      <div className="visibleOnClick" style={showWhenVisible}>
         {blog.url} <br /> likes {blog.likes}
         <button onClick={addLikes}>likes</button> <br /> {blog.user.name} <br />
         {blog.user.name === userLoged.name && (

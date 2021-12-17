@@ -32,6 +32,7 @@ const NewBlogForm = ({ createBlog }) => {
         <div>
           <label htmlFor="title">Title:</label>
           <input
+            className="title"
             value={newBlog.title}
             type="text"
             name="title"
