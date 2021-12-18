@@ -7,6 +7,7 @@ const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
       <div>
         <label htmlFor="username">Username:</label>
         <input
+          id="username"
           type="text"
           name="username"
           placeholder="Enter username"
@@ -17,6 +18,7 @@ const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
       <div>
         <label htmlFor="password">Password:</label>
         <input
+          id="password"
           type="text"
           name="password"
           placeholder="Enter password"
@@ -25,7 +27,9 @@ const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
         />
       </div>
       <div>
-        <button type="submit">Login</button>
+        <button id="login-button" type="submit">
+          Login
+        </button>
       </div>
     </form>
   );

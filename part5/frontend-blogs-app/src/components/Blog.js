@@ -20,11 +20,16 @@ const Blog = ({ blog, addLikes, deleteBlog, userLoged }) => {
     <div className="principalDiv" style={blogStyle}>
       <div className="visibleAtTheStart">
         {blog.title} - {blog.author}
-        <button onClick={toggleVisibility}>{butonText}</button>
+        <button id="viewButton" onClick={toggleVisibility}>
+          {butonText}
+        </button>
       </div>
-      <div className="visibleOnClick" style={showWhenVisible}>
+      <div id="blogDiv" className="visibleOnClick" style={showWhenVisible}>
         {blog.url} <br /> likes {blog.likes}
-        <button onClick={addLikes}>likes</button> <br /> {blog.user.name} <br />
+        <button id="likeButton" onClick={addLikes}>
+          likes
+        </button>
+        <br /> {blog.user.name} <br />
         {blog.user.name === userLoged.name && (
           <button onClick={deleteBlog}>remove</button>
         )}
