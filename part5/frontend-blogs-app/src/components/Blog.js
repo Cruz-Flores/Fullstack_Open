@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 
 const Blog = ({ blog, addLikes, deleteBlog, userLoged }) => {
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5,
-  };
-
   const [visible, setVisible] = useState(false);
   const showWhenVisible = { display: visible ? '' : 'none' };
   const toggleVisibility = () => {
@@ -17,21 +9,27 @@ const Blog = ({ blog, addLikes, deleteBlog, userLoged }) => {
   const butonText = visible ? 'hide' : 'view';
 
   return (
-    <div className="principalDiv" style={blogStyle}>
-      <div className="visibleAtTheStart">
-        {blog.title} - {blog.author}
+    <div id="blogDiv" className="blogDiv">
+      <div id="titleDiv">
+        <p>
+          {blog.title} - {blog.author}
+        </p>
+
         <button id="viewButton" onClick={toggleVisibility}>
           {butonText}
         </button>
       </div>
-      <div id="blogDiv" className="visibleOnClick" style={showWhenVisible}>
-        {blog.url} <br /> likes {blog.likes}
+      <div id="showWhenVisible" style={showWhenVisible}>
+        <p>{blog.url}</p>
+        <p>{blog.likes}</p>
         <button id="likeButton" onClick={addLikes}>
-          likes
+          like
         </button>
-        <br /> {blog.user.name} <br />
+        <p>{blog.user.name}</p>
         {blog.user.name === userLoged.name && (
-          <button onClick={deleteBlog}>remove</button>
+          <button className="redButton" onClick={deleteBlog}>
+            remove
+          </button>
         )}
       </div>
     </div>

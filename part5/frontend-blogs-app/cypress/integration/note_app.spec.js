@@ -19,21 +19,21 @@ describe('Blog app', function () {
     it('succeeds with correct credentials', function () {
       cy.get('#username').type('Cruzito');
       cy.get('#password').type('ganjah');
-      cy.get('#login-button').click();
+      cy.get('#logFormButton').click();
       cy.contains('Cruz logged in');
     });
 
     it('fails with wrong credentials', function () {
       cy.get('#username').type('Cruzito');
       cy.get('#password').type('cocol');
-      cy.get('#login-button').click();
+      cy.get('#logFormButton').click();
       cy.contains('Wrong credentials');
 
       cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
     });
   });
 
-  describe.only('When logged in', function () {
+  describe('When logged in', function () {
     beforeEach(function () {
       cy.login({ username: 'Cruzito', password: 'ganjah' });
     });
@@ -43,20 +43,33 @@ describe('Blog app', function () {
       cy.get('#title').type('blog test');
       cy.get('#author').type('coder');
       cy.get('#url').type('vw.com');
-      cy.get('#createButon').click();
+      cy.get('#createBlogButton').click();
 
       cy.contains('blog test - coder');
     });
 
-    it.only('A blog can be like', function () {
-      cy.createBlog({
-        title: 'automatic blog',
-        author: 'coder',
-        url: 'vw.com',
+    describe('When a blog created', function () {
+      beforeEach(function () {
+        cy.createBlog({
+          title: 'automatic blog',
+          author: 'coder',
+          url: 'vw.com',
+        });
       });
-      cy.get('#viewButton').click();
-      cy.get('#likeButton').click();
-      cy.get('#blogDiv').should('contain', '1');
+
+      it('A blog can be like', function () {
+        cy.get('#viewButton').click();
+        cy.get('#likeButton').click();
+        cy.get('#blogDiv').should('contain', '1');
+      });
+
+      it.only('A blog can be deleted', function () {
+        cy.get('#viewButton').click();
+        cy.get('#likeButton').click();
+        cy.contains('remove').click();
+
+        cy.get('html').should('not.contain', 'automatic blog');
+      });
     });
   });
 });

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
   return (
-    <form onSubmit={onSubmit}>
-      <div>
+    <form id="loginForm" onSubmit={onSubmit}>
+      <div className="divInput">
         <label htmlFor="username">Username:</label>
         <input
           id="username"
@@ -15,7 +15,7 @@ const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
           onChange={onChange}
         />
       </div>
-      <div>
+      <div className="divInput">
         <label htmlFor="password">Password:</label>
         <input
           id="password"
@@ -26,11 +26,9 @@ const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
           onChange={onChange}
         />
       </div>
-      <div>
-        <button id="login-button" type="submit">
-          Login
-        </button>
-      </div>
+      <button id="logFormButton" type="submit">
+        Login
+      </button>
     </form>
   );
 };

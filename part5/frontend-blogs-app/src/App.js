@@ -88,10 +88,9 @@ const App = () => {
   const deleteBlog = async (blog) => {
     const ok = window.confirm(`Delete the blog ${blog.title}`);
     if (ok) {
-      const blogdeleted = await blogsService.remove(blog.id);
-      // setBlogs(blogs.filter((object) => object.id !== blog.id));
-      // notifyWith(`Deleted ${blog.title}`, 'succes');
-      console.log(blogdeleted);
+      await blogsService.remove(blog.id);
+      setBlogs(blogs.filter((object) => object.id !== blog.id));
+      notifyWith(`Deleted ${blog.title}`, 'succes');
     }
   };
 
@@ -109,7 +108,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <Notification notification={notification} />
       {!userLoged ? (
         <LoginForm
@@ -118,11 +117,13 @@ const App = () => {
           onChange={handleInputChange}
         />
       ) : (
-        <>
+        <div id="mainDiv">
           <h2>Blogs</h2>
           <p>
             {userLoged.name} logged in
-            <button onClick={userLogout}>logout</button>
+            <button className="redButton" onClick={userLogout}>
+              logout
+            </button>
           </p>
           <Togglable buttonLabel="create">
             <NewBlogForm createBlog={addBLog} />
@@ -136,9 +137,9 @@ const App = () => {
               deleteBlog={() => deleteBlog(blog)}
             />
           ))}
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
