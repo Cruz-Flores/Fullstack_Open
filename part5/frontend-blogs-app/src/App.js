@@ -6,6 +6,7 @@ import { NewBlogForm } from './components/NewBlogForm.js';
 import { Notification } from './components/Notification.js';
 import { Togglable } from './components/Togglable.js';
 import { Blog } from './components/Blog.js';
+import { RegistryForm } from './components/RegistryForm.js';
 
 import './index.css';
 
@@ -111,11 +112,16 @@ const App = () => {
     <>
       <Notification notification={notification} />
       {!userLoged ? (
-        <LoginForm
-          onSubmit={userLogin}
-          userToLogin={userToLogin}
-          onChange={handleInputChange}
-        />
+        <>
+          <LoginForm
+            onSubmit={userLogin}
+            userToLogin={userToLogin}
+            onChange={handleInputChange}
+          />
+          <Togglable buttonLabel="Registry">
+            <RegistryForm />
+          </Togglable>
+        </>
       ) : (
         <div id="mainDiv">
           <h2>Blogs</h2>
