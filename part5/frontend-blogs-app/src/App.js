@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { blogsService } from './services/blogs.js';
 import { loginService } from './services/login.js';
-import { LoginForm } from './components/LoginForm.js';
 import { NewBlogForm } from './components/NewBlogForm.js';
 import { Notification } from './components/Notification.js';
 import { Togglable } from './components/Togglable.js';
 import { Blog } from './components/Blog.js';
 import { RegistryForm } from './components/RegistryForm.js';
+import { LoginForm } from './components/LoginForm.js';
 
 import './index.css';
 
@@ -112,7 +112,7 @@ const App = () => {
     <>
       <Notification notification={notification} />
       {!userLoged ? (
-        <>
+        <div className="formDiv">
           <LoginForm
             onSubmit={userLogin}
             userToLogin={userToLogin}
@@ -121,7 +121,7 @@ const App = () => {
           <Togglable buttonLabel="Registry">
             <RegistryForm />
           </Togglable>
-        </>
+        </div>
       ) : (
         <div id="mainDiv">
           <h2>Blogs</h2>

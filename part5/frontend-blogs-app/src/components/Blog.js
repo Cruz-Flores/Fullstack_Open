@@ -15,14 +15,14 @@ const Blog = ({ blog, addLikes, deleteBlog, userLoged }) => {
           {blog.title} - {blog.author}
         </p>
 
-        <button id="viewButton" onClick={toggleVisibility}>
+        <button className="greenButton" onClick={toggleVisibility}>
           {butonText}
         </button>
       </div>
       <div id="showWhenVisible" style={showWhenVisible}>
         <p>{blog.url}</p>
         <p>{blog.likes}</p>
-        <button id="likeButton" onClick={addLikes}>
+        <button className="blueButton" onClick={addLikes}>
           like
         </button>
         <p>{blog.user.name}</p>

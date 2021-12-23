@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
   return (
-    <form id="loginForm" onSubmit={onSubmit}>
+    <form id="logForm" className="form" onSubmit={onSubmit}>
       <div className="divInput">
         <label htmlFor="username">Username:</label>
         <input
@@ -26,9 +26,11 @@ const LoginForm = ({ onSubmit, onChange, userToLogin }) => {
           onChange={onChange}
         />
       </div>
-      <button id="logFormButton" type="submit">
-        Login
-      </button>
+      <div>
+        <button className="blueButton" type="submit">
+          Login
+        </button>
+      </div>
     </form>
   );
 };

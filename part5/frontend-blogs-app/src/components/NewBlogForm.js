@@ -26,10 +26,10 @@ const NewBlogForm = ({ createBlog }) => {
   };
 
   return (
-    <div id="newBlogInput">
+    <div id="newBlogDiv">
       <h2>Create new</h2>
-      <form id="newBlogForm" onSubmit={addBLog}>
-        <div className="divNewBlogInput">
+      <form id="newBlogForm" className="form" onSubmit={addBLog}>
+        <div className="divInput">
           <label htmlFor="title">Title:</label>
           <input
             id="title"
@@ -40,7 +40,7 @@ const NewBlogForm = ({ createBlog }) => {
             onChange={handleNewBlogChange}
           />
         </div>
-        <div className="divNewBlogInput">
+        <div className="divInput">
           <label htmlFor="author">Author:</label>
           <input
             id="author"
@@ -50,7 +50,7 @@ const NewBlogForm = ({ createBlog }) => {
             onChange={handleNewBlogChange}
           />
         </div>
-        <div className="divNewBlogInput">
+        <div className="divInput">
           <label htmlFor="url">Url:</label>
           <input
             id="url"
@@ -61,7 +61,7 @@ const NewBlogForm = ({ createBlog }) => {
           />
         </div>
         <div className="divNewBlogInput">
-          <button id="createBlogButton" className="createButton" type="submit">
+          <button id="createBlogButton" className="greenButton" type="submit">
             Create
           </button>
         </div>

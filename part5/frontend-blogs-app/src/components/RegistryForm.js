@@ -2,7 +2,7 @@ import React from 'react';
 
 const RegistryForm = () => {
   return (
-    <form id="registryForm">
+    <form className="form">
       <div className="divInput">
         <label htmlFor="name">Name:</label>
         <input id="name" type="text" name="name" placeholder="Enter name" />
@@ -25,9 +25,7 @@ const RegistryForm = () => {
           placeholder="Enter password"
         />
       </div>
-      <button id="logFormButton" type="submit">
-        Registry
-      </button>
+      <button className="greenButton">Registry</button>
     </form>
   );
 };
