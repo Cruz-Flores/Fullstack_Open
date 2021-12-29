@@ -66,11 +66,13 @@ blogsRouter.delete('/:id', async (request, response) => {
       .json({ error: 'Only the creator can delete blogs' });
   }
 
-  await Blog.findByIdAndRemove(request.params.id); //await blog.remove() ???
   user.blogs = user.blogs.filter(
     (b) => b._id.toString() !== blog._id.toString()
   );
   await User.findByIdAndUpdate(token.id, user);
+
+  await blog.remove();
+
   response.status(204).end();
 });
 
