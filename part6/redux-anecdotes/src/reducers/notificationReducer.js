@@ -1,13 +1,16 @@
-const interval = (s) => {
-  const ms = s * 1000;
-  return new Promise((resolve) => setTimeout(resolve, ms));
+let timeoutId;
+
+const timeout = (f, t) => {
+  timeoutId = setTimeout(f, t);
 };
 
 export const setNotification = (message, time) => {
   return async (dispatch) => {
+    clearInterval(timeoutId);
     dispatch({ type: 'NOTIFICATION', data: message });
-    await interval(time);
-    dispatch({ type: 'NOTIFICATION', data: null });
+    await timeout(() => {
+      dispatch({ type: 'NOTIFICATION', data: null });
+    }, time * 1000);
   };
 };
 

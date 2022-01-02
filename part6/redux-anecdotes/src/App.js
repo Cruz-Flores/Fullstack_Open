@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Filter } from './components/Filter.js';
+import Filter from './components/Filter.js';
 import { Notification } from './components/Notification.js';
-import { AnecdoteList } from './components/AnecdoteList.js';
-import { AnecdoteForm } from './components/AnecdoteForm.js';
+import { ConnectedAnecdoteList } from './components/AnecdoteList.js';
+import AnecdoteForm from './components/AnecdoteForm.js';
 import { useDispatch } from 'react-redux';
 import { initializeAnecdotes } from './reducers/anecdoteReducer.js';
 
@@ -18,7 +18,7 @@ const App = () => {
       <h2>Anecdotes</h2>
       <Filter />
       <Notification />
-      <AnecdoteList />
+      <ConnectedAnecdoteList />
       <AnecdoteForm />
     </div>
   );
