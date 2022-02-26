@@ -98,6 +98,38 @@ const Statistics = (props) => {
   );
 };
 
+//COURSE OPTIONS//
+// const Statistics = ({ good, neutral, bad }) => {
+//   const all = good+bad+neutral
+
+//   if (all===0) {
+//     return <>
+//       <h3>statistics</h3>
+//       <p>no feedback given</p>
+//     </>
+//   }
+
+//   const average = (good - bad ) / all
+//   const positive = 100 * (good / all)
+
+//   return (
+//     <div>
+//       <h3>statistics</h3>
+//       <table>
+//         <tbody>
+//           <StatisticLine text='good' value={good} />
+//           <StatisticLine text='neutral' value={neutral} />
+//           <StatisticLine text='bad' value={bad} />
+//           <StatisticLine text='all' value={all} />
+//           <StatisticLine text='average' value={average} />
+//           <StatisticLine text='positive' value={positive + '%'} />
+//         </tbody>
+//       </table>
+
+//     </div>
+//   )
+// }
+
 const App = () => {
   // save clicks of each button to its own state
   // const [good, setGood] = useState(0);
