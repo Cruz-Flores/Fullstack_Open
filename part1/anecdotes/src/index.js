@@ -64,9 +64,28 @@ const App = (props) => {
   const [votes, setVotes] = useState(new Uint8Array(anecdotes.length));
 
   const goToNextAnecdote = () => {
+    // sumar numero a la extension del arreglo por que si no nunca dara el numero maximo
     const aleatoryNumber = Math.floor(Math.random() * 6);
     setSelected(aleatoryNumber);
   };
+
+  //function to do not show repeated anecdote
+  // const next = () => {
+  //   let newSelected = selected
+  //   while (newSelected === selected) {
+  //     newSelected = Math.floor(Math.random()*anecdotes.length)
+  //   }
+
+  //   setSelected(newSelected)
+  // }
+
+  // function to only change anecdote if are ther any most voted
+  // let most_voted = 0
+  // for (let i = 0; i<anecdotes.length; i++) {
+  //   if (votes[i] > votes[most_voted]) {
+  //     most_voted = i
+  //   }
+  // }
 
   const voteAnecdote = () => {
     const copy = [...votes];
