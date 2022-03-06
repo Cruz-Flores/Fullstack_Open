@@ -1,0 +1,49 @@
+POST http://localhost:3001/excercises
+content-type: application/json
+
+{
+  "days": [1, 0, 2, 0, 3, 0, 2.5],
+  "target": 2.5
+}
+
+###
+
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+   "username": "Tesla" ,
+   "password": "coil"
+}
+
+###
+
+POST http://localhost:3001/api/books
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc2xhIiwiaWQiOiI2MWM3YjdiZjQ4NDM2MDZmMjYwNTgwMTYiLCJpYXQiOjE2NDA0Nzg3MDV9.jZIJBUnqQIV9hjPc0R6_B8QaA66DOJcnZsrbf83UaTg
+
+{
+   "title": "test 1",
+   "author": "coder",
+   "likes": 8,
+   "user": "61c7b7bf4843606f26058016"
+}
+
+###
+
+POST http://localhost:3001/api/books
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc2xhIiwiaWQiOiI2MWM3YjdiZjQ4NDM2MDZmMjYwNTgwMTYiLCJpYXQiOjE2NDA0Nzg3MDV9.jZIJBUnqQIV9hjPc0R6_B8QaA66DOJcnZsrbf83UaTg
+
+{
+   "title": "test 2",
+   "author": "coder",
+   "likes": 8,
+   "user": "61c7b7bf4843606f26058016"
+}
+
+###
+
+DELETE http://localhost:3001/api/books/61c7b9a75a0916d26180e24b
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc2xhIiwiaWQiOiI2MWM3YjdiZjQ4NDM2MDZmMjYwNTgwMTYiLCJpYXQiOjE2NDA0Nzg3MDV9.jZIJBUnqQIV9hjPc0R6_B8QaA66DOJcnZsrbf83UaTg

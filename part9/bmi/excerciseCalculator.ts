@@ -3,15 +3,16 @@ interface MultiplyValues {
   value2: Array<number>;
 }
 
-const parseArguments = (args: Array<string>): MultiplyValues => {
-  const dates = args.filter((n, i) => i > 1);
-  const argsArray = dates.map((n) => Number(n));
-  const findString = argsArray.includes(NaN);
+const calculatorArgumentsParser = (
+  target: number,
+  days: Array<number>
+): MultiplyValues => {
+  const findString = days.includes(NaN);
 
-  if (!findString) {
+  if (!findString && !isNaN(target)) {
     return {
-      value1: argsArray[0],
-      value2: argsArray.filter((n, i) => i > 0),
+      value1: target,
+      value2: days,
     };
   } else {
     throw new Error('Provided values were not numbers!');
@@ -55,9 +56,9 @@ const excerciseCalculator = (target: number, days: Array<number>): Result => {
   };
 };
 
-try {
-  const { value1, value2 } = parseArguments(process.argv);
-  console.log(excerciseCalculator(value1, value2));
-} catch (e: any) {
-  console.log('Error, something bad happened, message: ', e.message);
-}
+const calculatorFunctions = {
+  calculatorArgumentsParser,
+  excerciseCalculator,
+};
+
+export { calculatorFunctions };
