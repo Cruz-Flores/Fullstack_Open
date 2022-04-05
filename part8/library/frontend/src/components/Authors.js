@@ -7,8 +7,6 @@ const Authors = (props) => {
   const allAuthors = useQuery(ALL_AUTHORS);
   const authors = allAuthors.data ? allAuthors.data.allAuthors : [];
 
-  console.log('render authors');
-
   if (!show) {
     return null;
   }
