@@ -1,4 +1,4 @@
-import { ALL_BOOKS, ME } from '../queries';
+import { ALL_BOOKS } from '../queries';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { RecommendedBooks } from './RecommendedBooks';
