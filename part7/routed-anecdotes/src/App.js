@@ -286,20 +286,23 @@ const AnecdoteList = ({ anecdotes, onClick }) => (
   </div>
 );
 
-const CreateNew = (props) => {
+const CreateNew = ({ addNew }) => {
   const content = useField('text');
   const author = useField('text');
   const info = useField('text');
-  const valuesToReset = [content];
-  const reset = useField(valuesToReset);
-  console.log('reset', reset);
+
+  const reset = () => {
+    content.reset();
+    author.reset();
+    info.reset();
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addNew({
-      content: content.value,
-      author: author.value,
-      info: info.value,
+    addNew({
+      content: content.input.value,
+      author: author.input.value,
+      info: info.input.value,
       votes: 0,
     });
   };
@@ -310,23 +313,18 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input {...content} />
+          <input {...content.input} />
         </div>
         <div>
           author
-          <input {...author} />
+          <input {...author.input} />
         </div>
         <div>
           url for more info
-          <input {...info} />
+          <input {...info.input} />
         </div>
         <button type="submit">create</button>
-        <button
-          type="reset"
-          onClick={() => {
-            valuesToReset();
-          }}
-        >
+        <button type="reset" onClick={reset}>
           reset
         </button>
       </form>
