@@ -1,22 +1,37 @@
-import React, { useState } from 'react';
 import { useField } from '../hooks/index.js';
-import { registryService } from '../services/registry.js';
-import { loginService } from '../services/login.js';
+import { usersService } from '../services/users.js';
+import { useDispatch } from 'react-redux';
+import { initializeCurrentUser } from '../reducers/currentUserReducer.js';
+import { useNotification } from '../hooks/index.js';
 
-const RegistryForm = ({ createNewUser /* login */ }) => {
+const RegistryForm = () => {
+  const dispatch = useDispatch();
+  const { notify } = useNotification();
   const [name, resetName] = useField('text', 'name');
   const [username, resetUsername] = useField('text', 'username');
-  const [password, resetPassword] = useField('text', 'password');
+  const [password, resetPassword] = useField('password', 'password');
 
   const addNewUser = async (event) => {
     event.preventDefault();
 
-    console.log(
-      'name.value, username.value, password.value',
-      name.value,
-      username.value,
-      password.value
-    );
+    const newUser = {
+      name: name.value,
+      username: username.value,
+      password: password.value,
+    };
+
+    try {
+      await usersService.create(newUser);
+      dispatch(
+        initializeCurrentUser({
+          username: username.value,
+          password: password.value,
+        })
+      );
+      notify(`${newUser.name}, registry succesfuly`, 'succes');
+    } catch (exception) {
+      notify('Wrong credentials', 'error');
+    }
 
     resetName();
     resetUsername();
@@ -43,23 +58,3 @@ const RegistryForm = ({ createNewUser /* login */ }) => {
 };
 
 export { RegistryForm };
-
-// const createNewUser = async (newUser) => {
-//   try {
-//     await registryService.userRegistry(newUser);
-//     const user = await loginService.loginBlogs({
-//       username: newUser.username,
-//       password: newUser.password,
-//     });
-//     window.localStorage.setItem('loggedBlogsappUser', JSON.stringify(user));
-//     blogsService.setToken(user.token);
-//     setUserLoged(user);
-//     setUserToLogin({
-//       username: '',
-//       password: '',
-//     });
-//     notifyWith(`${user.name}, registry succesfuly`, 'succes');
-//   } catch (exception) {
-//     notifyWith('Wrong credentials', 'error');
-//   }
-// };

@@ -1,5 +1,0 @@
-definir interfaz de registro
-definir como se mostrarar
-definir funciones
-revisar backend
-cambiar rutas de backend

@@ -1,48 +1,65 @@
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 import { addLike, deleteBlog } from '../reducers/blogReducer';
+import { useField } from '../hooks/index';
+import { addComment } from '../reducers/blogReducer';
 
-const Blog = ({ blog }) => {
-  const { user } = useSelector((state) => state);
+const Blog = () => {
+  const id = useParams().id;
+  const { currentUser, blogs } = useSelector((state) => state);
+  const individualBlog = blogs.find((b) => b.id === id);
+  const [comment, resetComment] = useField('text', 'comment');
   const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
-  const showWhenVisible = { display: visible ? '' : 'none' };
-
-  const visibilityButonText = visible ? 'hide' : 'view';
 
   const onLikesButtonClick = async () => {
-    dispatch(addLike(blog));
+    dispatch(addLike(individualBlog));
   };
 
   const onDeleteButtonClick = async () => {
-    dispatch(deleteBlog(blog.id));
+    dispatch(deleteBlog(individualBlog.id));
+  };
+
+  const onSubmitComment = (e) => {
+    e.preventDefault();
+    const commentedBlog = {
+      ...individualBlog,
+      comments: individualBlog.comments.concat(comment.value),
+    };
+    dispatch(addComment(commentedBlog));
+    resetComment();
   };
 
   return (
-    <div>
-      <div>
-        <h2>{blog.id}</h2>
-        <p>
-          {blog.title} - {blog.author}
-        </p>
-        <button
-          onClick={() => {
-            setVisible(!visible);
-          }}
-        >
-          {visibilityButonText}
-        </button>
-      </div>
-      <div style={showWhenVisible}>
-        <p>{blog.url}</p>
-        <p>{blog.likes}</p>
-        <button onClick={onLikesButtonClick}>like</button>
-        <p>{blog.user.name}</p>
-        {blog.user.name === user.name && (
-          <button onClick={onDeleteButtonClick}>remove</button>
-        )}
-      </div>
-    </div>
+    <>
+      {individualBlog && (
+        <>
+          <div>
+            <h2>
+              {individualBlog.title} - {individualBlog.author}
+            </h2>
+          </div>
+          <a href={individualBlog.url}>{individualBlog.url}</a>
+          <div>
+            {individualBlog.likes}
+            <button onClick={onLikesButtonClick}>like</button>
+          </div>
+          added by {individualBlog.user.name}
+          {individualBlog.user.name === currentUser.name && (
+            <button onClick={onDeleteButtonClick}>remove</button>
+          )}
+          <h3>comments</h3>
+          <form onSubmit={onSubmitComment}>
+            <input {...comment} />
+            <button type="submit">add comment</button>
+          </form>
+          <ul>
+            {/* {individualBlog.comments.map((c) => (
+              <li>{c.content}</li>
+            ))} */}
+          </ul>
+        </>
+      )}
+    </>
   );
 };
 

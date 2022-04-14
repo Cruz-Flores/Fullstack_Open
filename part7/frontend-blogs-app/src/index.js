@@ -1,23 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import App from './App';
 import blogReducer from './reducers/blogReducer';
-import userReducer from './reducers/userReducer';
+import currentUserReducer from './reducers/currentUserReducer';
 import notificationReducer from './reducers/notificationReducer';
+import usersReducer from './reducers/usersReducer';
 
 const store = configureStore({
   reducer: {
     blogs: blogReducer,
-    user: userReducer,
+    currentUser: currentUserReducer,
     notification: notificationReducer,
+    users: usersReducer,
   },
 });
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <Provider store={store}>
     <App />
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );

@@ -1,6 +1,6 @@
 import { useField } from '../hooks';
 import { useDispatch } from 'react-redux';
-import { initializeUser } from '../reducers/userReducer';
+import { initializeCurrentUser } from '../reducers/currentUserReducer';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,10 @@ const LoginForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(
-      initializeUser({ username: username.value, password: password.value })
+      initializeCurrentUser({
+        username: username.value,
+        password: password.value,
+      })
     );
     resetUsername();
     resetPassword();

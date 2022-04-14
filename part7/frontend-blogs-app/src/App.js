@@ -1,47 +1,58 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNotification } from './hooks/index.js';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import { blogsService } from './services/blogs.js';
 
-import { NewBlogForm } from './components/NewBlogForm.js';
 import { Notification } from './components/Notification.js';
 import { Togglable } from './components/Togglable.js';
 import { Blog } from './components/Blog.js';
 import { RegistryForm } from './components/RegistryForm.js';
 import { LoginForm } from './components/LoginForm.js';
+import { Users } from './components/Users.js';
+import { IndividualUser } from './components/IndividualUser.js';
+import { Blogs } from './components/Blogs.js';
 
 import { initializeBlogs } from './reducers/blogReducer';
-import { setUser } from './reducers/userReducer.js';
+import { setCurrentUser } from './reducers/currentUserReducer.js';
+import { initializeUsers } from './reducers/usersReducer.js';
 
 const App = () => {
-  const { blogs, user } = useSelector((state) => state);
+  const { currentUser } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { notify } = useNotification();
 
   const userLogout = () => {
     window.localStorage.removeItem('loggedBlogsAppUser');
-    dispatch(setUser(null));
-    notify(`${user.name} logout`, 'succes');
+    dispatch(setCurrentUser(null));
+    notify(`${currentUser.name} logout`, 'succes');
   };
 
   useEffect(() => {
     dispatch(initializeBlogs());
+    dispatch(initializeUsers());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogsAppUser');
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      dispatch(setUser(user));
-      blogsService.setToken(user.token);
+      const currentUser = JSON.parse(loggedUserJSON);
+      dispatch(setCurrentUser(currentUser));
+      blogsService.setToken(currentUser.token);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const padding = {
+    padding: 5,
+  };
 
   return (
     <>
       <Notification />
-      {!user ? (
+      {!currentUser ? (
         <div>
           <LoginForm />
           <Togglable buttonLabel="Registry">
@@ -49,20 +60,31 @@ const App = () => {
           </Togglable>
         </div>
       ) : (
-        <div id="mainDiv">
+        <>
           <h2>Blogs</h2>
           <p>
-            {user.name} logged in
+            {currentUser.name} logged in
             <button onClick={userLogout}>logout</button>
           </p>
-          <Togglable buttonLabel="create">
-            <NewBlogForm />
-          </Togglable>
-          {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} user={user} />
-          ))}
-        </div>
+        </>
       )}
+      <Router>
+        <div>
+          <Link style={padding} to="/">
+            blogs
+          </Link>
+          <Link style={padding} to="/users">
+            users
+          </Link>
+        </div>
+
+        <Routes>
+          <Route path="/" element={<Blogs />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<IndividualUser />} />
+          <Route path="/blogs/:id" element={<Blog />} />
+        </Routes>
+      </Router>
     </>
   );
 };
