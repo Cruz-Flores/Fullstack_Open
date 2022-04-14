@@ -50,7 +50,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <Notification />
       {!currentUser ? (
         <div>
@@ -85,7 +85,7 @@ const App = () => {
           <Route path="/blogs/:id" element={<Blog />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 };
 
